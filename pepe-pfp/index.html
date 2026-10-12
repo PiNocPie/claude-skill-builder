@@ -19,6 +19,12 @@
   --accent-ink: #FFFFFF;
   --accent-soft: #DCE7F6;
   --shadow: #1C2618;
+  --trader: #1E8A4C;
+  --tier-common: #7A8471;
+  --tier-uncommon: #2E8B57;
+  --tier-rare: #2F63B0;
+  --tier-epic: #7A4FB8;
+  --tier-legendary: #E8B730;
   --font-display: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif;
   --font-body: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -115,7 +121,44 @@ h1 {
   letter-spacing: 0.5px;
   font-variant-numeric: tabular-nums;
 }
-.serial span { color: var(--muted); font-size: 13px; }
+.serial span { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.tier {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font: 800 11px/1.4 var(--font-body);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: var(--tier-common);
+  vertical-align: 3px;
+}
+.tier[data-tier="uncommon"] { background: var(--tier-uncommon); }
+.tier[data-tier="rare"] { background: var(--tier-rare); }
+.tier[data-tier="epic"] { background: var(--tier-epic); }
+.tier[data-tier="legendary"] { background: var(--tier-legendary); color: #2A1E00; }
+
+.props {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  max-width: 400px;
+}
+@media (max-width: 380px) { .props { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.prop {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 8px 10px;
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+.prop .k { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+.prop .v { font-size: 14px; font-weight: 800; overflow-wrap: anywhere; }
+.prop .p { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.prop.is-rare { border-color: var(--tier-epic); }
 
 .actions {
   display: grid;
@@ -135,7 +178,9 @@ h1 {
 }
 .btn:hover { background: var(--accent-soft); }
 .btn:active { transform: translateY(1px); }
-.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); grid-column: 1 / -1; font-size: 16px; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-size: 16px; }
+.btn.trader { background: var(--trader); color: #FFFFFF; border-color: var(--trader); font-size: 16px; }
+.btn.trader:hover { filter: brightness(1.08); background: var(--trader); }
 .btn.primary:hover { filter: brightness(1.06); }
 .btn:focus-visible, .opt:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
@@ -210,6 +255,7 @@ h1 {
 }
 .opt svg { width: 64px; height: 64px; border-radius: 10px; display: block; }
 .opt:hover { border-color: var(--muted); }
+.opt small { font-weight: 600; font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .opt[aria-checked="true"] { border-color: var(--accent); background: var(--accent-soft); }
 
 .swatch {
@@ -233,7 +279,7 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
 <div class="wrap">
   <header>
     <h1>Pepe PFP Builder</h1>
-    <p class="lede">Pick eyes, lips, hats and drip for your frog. Every change shows up right away. Copy the PNG when it feels good, man.</p>
+    <p class="lede">Build your frog trait by trait, like a PFP collection. Every trait shows how many frogs in the set have it, and rarer traits push your rarity score up. Roll a trader for the degen desk look.</p>
   </header>
 
   <div class="layout">
@@ -242,12 +288,13 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
       <div class="card-meta">
         <div class="mini" id="mini" aria-hidden="true"></div>
         <div class="serial">
-          <b id="serial">Rare Pepe No. 0001</b>
+          <b id="serial">Pepe No. 0001</b>
           <span id="summary">Round crop preview</span>
         </div>
       </div>
       <div class="actions">
         <button class="btn primary" id="btn-random" type="button">Randomize</button>
+        <button class="btn trader" id="btn-trader" type="button">Roll a trader</button>
         <button class="btn" id="btn-copy-img" type="button">Copy image</button>
         <button class="btn" id="btn-save" type="button">Save PNG</button>
         <button class="btn" id="btn-link" type="button">Copy link</button>
@@ -257,13 +304,14 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
         <img id="save-img" alt="Your Pepe avatar as a 1024 px PNG">
         <p>Right-click the image and choose Save image, or long-press it on a phone.</p>
       </div>
+      <div class="props" id="props" aria-label="Traits"></div>
     </aside>
 
     <main class="traits" id="traits"></main>
   </div>
 
   <footer>
-    Original drawing in the style of the Pepe meme. Links keep every trait, so a shared link opens the same frog.
+    Original drawing in the style of the Pepe meme. Trait percentages are the odds Randomize uses, so they match how often each trait shows up. Links keep every trait, so a shared link opens the same frog.
   </footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -283,18 +331,34 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
     bgColor: { sky: '#9FD3F0', peach: '#FFC9A8', mint: '#BDE8C9', lilac: '#CDB8F0', lemon: '#F6E58D', rose: '#F5A9B8', night: '#26304A', swamp: '#62733F' },
   };
   const SHAPES = {
-    eyes: ['classic', 'smug', 'sad', 'angry', 'sleepy', 'wide', 'laser'],
-    mouth: ['classic', 'smug', 'sad', 'smile', 'shout'],
+    eyes: ['classic', 'smug', 'sad', 'angry', 'sleepy', 'wide', 'laser', 'btc', 'degen'],
+    mouth: ['classic', 'smug', 'sad', 'smile', 'shout', 'tired'],
     blush: ['none', 'soft', 'rosy', 'freckles'],
     outfit: ['tee', 'hoodie', 'suit', 'stripes', 'none'],
     hat: ['none', 'beanie', 'cap', 'crown', 'wizard', 'cowboy', 'party'],
-    extra: ['none', 'shades', 'cig', 'headphones', 'chain'],
-    background: ['radial', 'solid', 'sunburst', 'stripes', 'grid', 'dots'],
+    extra: ['none', 'shades', 'cig', 'headphones', 'headset', 'chain'],
+    background: ['radial', 'solid', 'sunburst', 'stripes', 'grid', 'dots', 'terminal', 'pump', 'dump'],
+  };
+  // Share of the collection (percent) that has each trait. Each list adds up to 100.
+  // Randomize draws with these odds, and the rarity score is built from them.
+  const WEIGHTS = {
+    skin: { classic: 30, lime: 18, olive: 14, mint: 12, swamp: 12, gold: 3, ice: 6, ghost: 5 },
+    eyes: { classic: 22, smug: 16, sad: 12, angry: 10, sleepy: 12, wide: 10, laser: 4, btc: 9, degen: 5 },
+    mouth: { classic: 30, smug: 20, sad: 14, smile: 14, shout: 8, tired: 14 },
+    lips: { classic: 40, rose: 18, plum: 12, caramel: 20, ink: 10 },
+    blush: { none: 55, soft: 20, rosy: 12, freckles: 13 },
+    outfit: { tee: 30, hoodie: 26, suit: 12, stripes: 18, none: 14 },
+    outfitColor: { blue: 24, forest: 14, red: 12, black: 14, white: 10, purple: 10, orange: 9, pink: 7 },
+    hat: { none: 40, beanie: 14, cap: 16, crown: 3, wizard: 5, cowboy: 10, party: 12 },
+    hatColor: { red: 20, blue: 16, forest: 12, black: 16, white: 10, purple: 10, orange: 9, pink: 7 },
+    extra: { none: 36, shades: 14, cig: 12, headphones: 12, headset: 14, chain: 12 },
+    background: { radial: 18, solid: 16, sunburst: 12, stripes: 10, grid: 10, dots: 10, terminal: 8, pump: 10, dump: 6 },
+    bgColor: { sky: 18, peach: 14, mint: 14, lilac: 12, lemon: 12, rose: 10, night: 12, swamp: 8 },
   };
   const DEFAULTS = {
-    skin: 'classic', eyes: 'classic', mouth: 'classic', lips: 'classic', blush: 'none',
-    outfit: 'tee', outfitColor: 'blue', hat: 'none', hatColor: 'red', extra: 'none',
-    background: 'radial', bgColor: 'sky',
+    skin: 'classic', eyes: 'degen', mouth: 'tired', lips: 'classic', blush: 'none',
+    outfit: 'tee', outfitColor: 'blue', hat: 'none', hatColor: 'black', extra: 'headset',
+    background: 'terminal', bgColor: 'night',
   };
   const KEYS = Object.keys(DEFAULTS);
   const LABELS = {
@@ -302,7 +366,7 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
     outfit: 'Outfit', outfitColor: 'Outfit color', hat: 'Hat', hatColor: 'Hat color', extra: 'Extra',
     background: 'Background', bgColor: 'Background color',
   };
-  const OPTION_NAMES = { cig: 'Smoke', none: 'None', tee: 'Tee' };
+  const OPTION_NAMES = { cig: 'Smoke', none: 'None', tee: 'Tee', btc: '₿ eyes', degen: 'Degen', pump: 'Pump', dump: 'Dump' };
   const GROUPS = [
     { title: 'Face', keys: ['skin', 'eyes', 'mouth', 'lips', 'blush'] },
     { title: 'Drip', keys: ['outfit', 'outfitColor', 'hat', 'hatColor', 'extra'] },
@@ -365,8 +429,84 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
           `<pattern id="${u}-bg" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="${c}"/><circle cx="10" cy="10" r="5" fill="${lo}"/><circle cx="30" cy="30" r="5" fill="${lo}"/></pattern>`,
           `<rect width="512" height="512" fill="url(#${u}-bg)"/>`,
         ];
+      case 'pump':
+      case 'dump': {
+        const up = kind === 'pump';
+        const base = darken(c, 0.15);
+        let grid = '';
+        for (let y = 40; y < 512; y += 48) grid += `M0,${y}H512`;
+        return ['',
+          `<rect width="512" height="512" fill="${base}"/>` +
+          `<path d="${grid}" stroke="${lighten(base, 0.18)}" stroke-width="2"/>` +
+          `<g opacity=".75">${candles(8, 24, 496, 300, 22, up ? 1.1 : -1.1, up ? 7 : 11)}</g>` +
+          (up
+            ? `<path d="M40,300 L200,190 L280,230 L470,60" fill="none" stroke="${CANDLE_UP}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/><path d="M440,56 L474,58 L470,92" fill="none" stroke="${CANDLE_UP}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>`
+            : `<path d="M40,60 L200,170 L280,130 L470,300" fill="none" stroke="${CANDLE_DOWN}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/><path d="M436,300 L472,302 L470,266" fill="none" stroke="${CANDLE_DOWN}" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>`)];
+      }
+      case 'terminal': {
+        const room = mix(c, '#06090D', 0.78);
+        const glow = lighten(c, 0.2);
+        const screen = (x, y, w, h, seed, drift, book) =>
+          `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="#0C131C" stroke="#2C3747" stroke-width="5"/>` +
+          `<rect x="${x + 6}" y="${y + 6}" width="${w - 12}" height="10" fill="#18222F"/>` +
+          (book ? orderBook(x + 10, y + 22, w - 20, h - 30, seed) : candles(x + 8, y + 24, w - 16, h - 34, Math.round(w / 12), drift, seed));
+        return [
+          `<radialGradient id="${u}-bg" cx="50%" cy="38%" r="70%"><stop offset="0" stop-color="${glow}" stop-opacity=".55"/><stop offset="1" stop-color="${glow}" stop-opacity="0"/></radialGradient>`,
+          `<rect width="512" height="512" fill="${room}"/><rect width="512" height="512" fill="url(#${u}-bg)"/>` +
+          screen(-12, 18, 196, 150, 3, 0.8, false) +
+          screen(150, -8, 214, 120, 5, -0.4, true) +
+          screen(334, 22, 194, 146, 9, 0.6, false) +
+          screen(-16, 196, 128, 132, 13, -0.7, true) +
+          screen(400, 192, 128, 136, 17, 1, false) +
+          `<rect x="0" y="470" width="512" height="42" fill="${darken(room, 0.3)}"/>`,
+        ];
+      }
     }
     return ['', ''];
+  }
+
+  // ---------- chart helpers (seeded, so a trait always draws the same) ----------
+  const CANDLE_UP = '#2FBF71', CANDLE_DOWN = '#E5484D';
+  function rng(seed) {
+    let a = seed >>> 0;
+    return () => {
+      a = (a + 0x6D2B79F5) >>> 0;
+      let t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function candles(x, y, w, h, n, drift, seed) {
+    const r = rng(seed);
+    const bars = [];
+    let v = 0;
+    for (let i = 0; i < n; i++) {
+      const o = v, cl = o + drift + (r() - 0.5) * 3;
+      bars.push([o, cl, Math.max(o, cl) + r() * 1.2, Math.min(o, cl) - r() * 1.2]);
+      v = cl;
+    }
+    const max = Math.max(...bars.map((b) => b[2])), min = Math.min(...bars.map((b) => b[3]));
+    const sy = (val) => y + h - ((val - min) / (max - min || 1)) * h;
+    const bw = w / n;
+    return bars.map(([o, cl, hi, lo], i) => {
+      const cx = x + bw * i + bw / 2, col = cl >= o ? CANDLE_UP : CANDLE_DOWN;
+      const top = sy(Math.max(o, cl)), bot = sy(Math.min(o, cl));
+      return `<line x1="${cx.toFixed(1)}" y1="${sy(hi).toFixed(1)}" x2="${cx.toFixed(1)}" y2="${sy(lo).toFixed(1)}" stroke="${col}" stroke-width="${Math.max(1.5, bw * 0.12).toFixed(1)}"/>` +
+        `<rect x="${(cx - bw * 0.3).toFixed(1)}" y="${top.toFixed(1)}" width="${(bw * 0.6).toFixed(1)}" height="${Math.max(2, bot - top).toFixed(1)}" fill="${col}"/>`;
+    }).join('');
+  }
+  function orderBook(x, y, w, h, seed) {
+    const r = rng(seed);
+    let g = '';
+    const rows = Math.floor(h / 9);
+    for (let i = 0; i < rows; i++) {
+      const col = i < rows / 2 ? CANDLE_DOWN : CANDLE_UP;
+      const bar = w * (0.2 + r() * 0.6);
+      g += `<rect x="${(x + w - bar).toFixed(1)}" y="${y + i * 9}" width="${bar.toFixed(1)}" height="6" fill="${col}" opacity=".35"/>` +
+        `<rect x="${x}" y="${y + i * 9 + 1}" width="${(w * 0.3).toFixed(1)}" height="4" fill="${col}"/>`;
+    }
+    return g;
   }
 
   const BODY = 'M52,520 C56,440 150,396 256,396 C362,396 456,440 460,520 Z';
@@ -420,7 +560,20 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
     sleepy: { o: 24, i: 24, px: -4, py: 34, pr: 10 },
     wide: { o: -90, i: -90, px: 0, py: 2, pr: 8 },
     laser: { o: -4, i: -4, px: -10, py: 14, pr: 11 },
+    btc: { o: -6, i: -6, px: 0, py: 12, pr: 20 },
+    degen: { o: 0, i: -10, px: 0, py: 14, pr: 20 },
   };
+  // Red veins on a bloodshot eye: angles (degrees) where each vein starts on the rim.
+  const VEINS = [12, 38, 64, 116, 142, 168, 190, -10];
+
+  function btcPupil(px, py, r) {
+    const fs = Math.round(r * 1.25);
+    return `<circle cx="${px}" cy="${py}" r="${r}" fill="${OUT}"/>` +
+      `<rect x="${px - 3}" y="${py - r * 0.72}" width="2.5" height="${r * 1.44}" fill="#F7A600"/>` +
+      `<rect x="${px + 1.5}" y="${py - r * 0.72}" width="2.5" height="${r * 1.44}" fill="#F7A600"/>` +
+      `<text x="${px + 1}" y="${py + fs * 0.36}" text-anchor="middle" font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" font-size="${fs}" fill="#F7A600">B</text>` +
+      `<circle cx="${px - r * 0.45}" cy="${py - r * 0.5}" r="3" fill="#FFFFFF"/>`;
+  }
 
   function eyes(kind, skin, u) {
     const st = EYE_STYLE[kind];
@@ -431,10 +584,21 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
       const yL = e.side < 0 ? yOuter : yInner, yR = e.side < 0 ? yInner : yOuter;
       const px = e.cx + st.px, py = e.cy + st.py;
       defs += `<clipPath id="${u}-eye${k}"><circle cx="${e.cx}" cy="${e.cy}" r="${EYE_R}"/></clipPath>`;
-      g += `<circle cx="${e.cx}" cy="${e.cy}" r="${EYE_R}" fill="#FDFDF7"/>`;
+      g += `<circle cx="${e.cx}" cy="${e.cy}" r="${EYE_R}" fill="${kind === 'degen' ? '#F7B9B9' : '#FDFDF7'}"/>`;
       g += `<g clip-path="url(#${u}-eye${k})">`;
+      if (kind === 'degen') {
+        g += VEINS.map((a, n) => {
+          const rad = a * Math.PI / 180, cos = Math.cos(rad), sin = Math.sin(rad);
+          const x1 = e.cx + EYE_R * cos, y1 = e.cy + EYE_R * sin;
+          const x2 = e.cx + EYE_R * 0.55 * cos, y2 = e.cy + EYE_R * 0.55 * sin;
+          const kx = (x1 + x2) / 2 + (n % 2 ? 5 : -5) * sin, ky = (y1 + y2) / 2 - (n % 2 ? 5 : -5) * cos;
+          return `<path d="M${x1.toFixed(1)},${y1.toFixed(1)} Q${kx.toFixed(1)},${ky.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}" fill="none" stroke="#D93A50" stroke-width="2.5" stroke-linecap="round"/>`;
+        }).join('');
+      }
       if (kind === 'laser') {
         g += `<circle cx="${px}" cy="${py}" r="${st.pr + 3}" fill="#FF2D2D"/><circle cx="${px}" cy="${py}" r="5" fill="#FFF3F0"/>`;
+      } else if (kind === 'btc' || kind === 'degen') {
+        g += btcPupil(px, py, st.pr);
       } else {
         g += `<circle cx="${px}" cy="${py}" r="${st.pr}" fill="${OUT}"/><circle cx="${px + 3}" cy="${py - 4}" r="3" fill="#FFFFFF"/>`;
       }
@@ -470,6 +634,7 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
     sad: { d: 'M144,368 C172,316 340,312 376,364 C356,376 340,362 326,356 C296,342 222,344 192,356 C176,362 160,378 144,368 Z', line: 'M150,366 C182,330 338,326 370,362', corner: [368, 360] },
     smile: { d: 'M146,326 C200,342 320,342 378,322 C362,404 166,408 146,326 Z', open: true, teeth: true, tongue: [262, 384, 46, 18], corner: [372, 328] },
     shout: { d: 'M206,352 C206,294 318,294 318,352 C318,406 206,406 206,352 Z', open: true, tongue: [262, 392, 38, 16], corner: [314, 350] },
+    tired: { d: 'M138,352 C176,318 334,316 384,346 C356,376 186,380 138,352 Z', line: 'M144,352 C200,336 322,334 378,346', corner: [374, 348] },
   };
 
   function mouth(kind, lip, u) {
@@ -580,6 +745,18 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
           `<path d="M114,258 C94,92 418,82 398,250" fill="none" stroke="#2A2D33" stroke-width="14" stroke-linecap="round"/>` +
           `<rect x="84" y="226" width="46" height="88" rx="20" fill="${hc}" stroke="${OUT}" stroke-width="6"/>` +
           `<rect x="382" y="218" width="46" height="88" rx="20" fill="${hc}" stroke="${OUT}" stroke-width="6"/>`;
+      case 'headset': {
+        const cup = (x, y) =>
+          `<rect x="${x}" y="${y}" width="58" height="100" rx="26" fill="#3A3E46" stroke="${OUT}" stroke-width="6"/>` +
+          `<rect x="${x + 12}" y="${y + 16}" width="34" height="68" rx="16" fill="#23262C"/>` +
+          `<rect x="${x + 20}" y="${y + 30}" width="18" height="40" rx="9" fill="${hc}"/>`;
+        return `<path d="M108,262 C88,84 424,74 404,254" fill="none" stroke="${OUT}" stroke-width="30" stroke-linecap="round"/>` +
+          `<path d="M108,262 C88,84 424,74 404,254" fill="none" stroke="#3A3E46" stroke-width="18" stroke-linecap="round"/>` +
+          `<path d="M100,300 C102,344 120,358 150,354" fill="none" stroke="${OUT}" stroke-width="14" stroke-linecap="round"/>` +
+          `<path d="M100,300 C102,344 120,358 150,354" fill="none" stroke="#3A3E46" stroke-width="7" stroke-linecap="round"/>` +
+          `<rect x="146" y="344" width="22" height="18" rx="9" fill="#23262C" stroke="${OUT}" stroke-width="4"/>` +
+          cup(72, 214) + cup(384, 206);
+      }
       case 'chain':
         return `<path d="M168,412 C196,486 316,486 344,412" fill="none" stroke="${OUT}" stroke-width="14" stroke-linecap="round"/>` +
           `<path d="M168,412 C196,486 316,486 344,412" fill="none" stroke="#E8B730" stroke-width="8" stroke-dasharray="11 4"/>` +
@@ -653,10 +830,14 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
     return String((h >>> 0) % 9999 + 1).padStart(4, '0');
   }
 
-  const RARE = { skin: ['gold', 'ice', 'ghost'], eyes: ['laser'], hat: ['crown', 'wizard'], extra: ['chain'] };
-  function rarity(s) {
-    const n = Object.entries(RARE).filter(([k, vals]) => vals.includes(s[k])).length;
-    return n >= 3 ? 'Ultra rare' : n === 2 ? 'Very rare' : n === 1 ? 'Rare' : 'Common feels';
+  // Rarity score: sum of 100 / trait share, the usual way PFP collections rank rarity.
+  const score = (s) => Math.round(KEYS.reduce((sum, k) => sum + 100 / WEIGHTS[k][s[k]], 0));
+  function tier(points) {
+    if (points >= 160) return 'legendary';
+    if (points >= 125) return 'epic';
+    if (points >= 95) return 'rare';
+    if (points >= 70) return 'uncommon';
+    return 'common';
   }
 
   // ---------- UI ----------
@@ -670,8 +851,8 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
       grp.keys.map((k) => {
         const values = SHAPES[k] || Object.keys(SWATCH[k]);
         const buttons = values.map((v) => SHAPES[k]
-          ? `<button type="button" class="opt" role="radio" data-k="${k}" data-v="${v}" aria-label="${LABELS[k]}: ${nice(v)}"><span class="thumb"></span>${nice(v)}</button>`
-          : `<button type="button" class="opt swatch" role="radio" data-k="${k}" data-v="${v}" style="--c:${SWATCH[k][v]}" title="${nice(v)}" aria-label="${LABELS[k]}: ${nice(v)}"></button>`).join('');
+          ? `<button type="button" class="opt" role="radio" data-k="${k}" data-v="${v}" aria-label="${LABELS[k]}: ${nice(v)}"><span class="thumb"></span>${nice(v)}<small>${WEIGHTS[k][v]}%</small></button>`
+          : `<button type="button" class="opt swatch" role="radio" data-k="${k}" data-v="${v}" style="--c:${SWATCH[k][v]}" title="${nice(v)} · ${WEIGHTS[k][v]}%" aria-label="${LABELS[k]}: ${nice(v)}, ${WEIGHTS[k][v]}%"></button>`).join('');
         return `<div class="field"><div class="field-head"><span class="label" id="lbl-${k}">${LABELS[k]}</span><span class="value" id="val-${k}"></span></div>` +
           `<div class="options" role="radiogroup" aria-labelledby="lbl-${k}">${buttons}</div></div>`;
       }).join('') + `</section>`).join('');
@@ -693,29 +874,46 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
         b.querySelector('.thumb').innerHTML = render(s, `t-${k}-${v}`, CROP[k] || '0 0 512 512');
       }
     });
-    KEYS.forEach((k) => { $('val-' + k).textContent = state[k]; });
+    KEYS.forEach((k) => { $('val-' + k).textContent = nice(state[k]) + ' · ' + WEIGHTS[k][state[k]] + '%'; });
+    $('props').innerHTML = KEYS.map((k) => {
+      const p = WEIGHTS[k][state[k]];
+      return `<div class="prop${p <= 5 ? ' is-rare' : ''}"><span class="k">${LABELS[k]}</span><span class="v">${nice(state[k])}</span><span class="p">${p}% have this</span></div>`;
+    }).join('');
   }
 
   function set(s) {
     state = s;
     $('stage').innerHTML = render(state, 'main');
     $('mini').innerHTML = render(state, 'mini');
-    $('serial').textContent = 'Rare Pepe No. ' + serial(state);
-    $('summary').textContent = rarity(state) + ' · round crop preview';
+    const pts = score(state), t = tier(pts);
+    $('serial').innerHTML = 'Pepe No. ' + serial(state) + `<span class="tier" data-tier="${t}">${t}</span>`;
+    $('summary').textContent = 'Rarity score ' + pts;
     $('save').hidden = true;
     refreshControls();
     writeLocation();
   }
 
-  function randomize() {
-    const pick = (a) => a[Math.floor(Math.random() * a.length)];
-    const s = {};
-    Object.keys(SHAPES).forEach((k) => { s[k] = pick(SHAPES[k]); });
-    Object.keys(SWATCH).forEach((k) => { s[k] = pick(Object.keys(SWATCH[k])); });
-    if (Math.random() < 0.65) s.skin = pick(['classic', 'lime', 'olive', 'mint', 'swamp']);
-    if (Math.random() < 0.35) s.hat = 'none';
-    if (Math.random() < 0.4) s.extra = 'none';
-    if (Math.random() < 0.5) s.blush = 'none';
+  const pick = (a) => a[Math.floor(Math.random() * a.length)];
+  // Draw one value with the collection odds in WEIGHTS.
+  function weighted(k) {
+    let r = Math.random() * 100;
+    for (const [v, w] of Object.entries(WEIGHTS[k])) { r -= w; if (r < 0) return v; }
+    return Object.keys(WEIGHTS[k])[0];
+  }
+  const roll = () => Object.fromEntries(KEYS.map((k) => [k, weighted(k)]));
+
+  function randomize() { set(roll()); }
+
+  // Trader pack: keep the collection odds for looks, force the desk traits.
+  function rollTrader() {
+    const s = roll();
+    s.background = pick(['terminal', 'terminal', 'pump', 'dump']);
+    s.eyes = s.background === 'dump' ? pick(['sad', 'degen', 'sleepy']) : pick(['degen', 'degen', 'btc', 'laser', 'sleepy']);
+    s.mouth = s.background === 'dump' ? pick(['sad', 'tired']) : pick(['tired', 'classic', 'smug', 'smile']);
+    s.extra = pick(['headset', 'headset', 'headphones', 'none']);
+    s.outfit = pick(['tee', 'hoodie', 'hoodie', 'suit']);
+    if (s.extra !== 'none') s.hat = pick(['none', 'none', 'cap', 'beanie']);
+    if (s.background === 'terminal') s.bgColor = pick(['night', 'night', 'swamp', 'sky']);
     set(s);
   }
 
@@ -770,6 +968,7 @@ footer { color: var(--muted); font-size: 13px; max-width: 70ch; }
   }
 
   $('btn-random').addEventListener('click', randomize);
+  $('btn-trader').addEventListener('click', rollTrader);
   $('btn-save').addEventListener('click', showSave);
   $('btn-svg').addEventListener('click', () => copyText(render(state, 'pepe', '0 0 512 512', 512), 'SVG copied'));
   $('btn-link').addEventListener('click', () => {
