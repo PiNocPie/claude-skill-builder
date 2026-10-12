@@ -1,20 +1,114 @@
 {
-  "pack": "RISEx frog stickers",
+  "pack": "RISEx degen frog stickers",
   "cdn": "https://d8j0ntlcm91z4.cloudfront.net/user_3JSaTqZSLPBwkdGMvbLaGVg1i76/",
-  "mascot_job": "951f068f-32d9-4043-8859-1b92cab665d4",
+  "mascot_job": "16050c85-81a6-4292-b341-2323ecc38573",
   "accent": "#04DF83",
+  "logo_media": "5163f6b1-3c08-467c-8255-4bf815b639d0",
+  "degen_reference_media": "86691f0c-e278-42d4-bc07-56a9fe77ed50",
+  "earlier_blue_tee_set": [
+    {
+      "n": 1,
+      "caption": "gm",
+      "emoji": "☀️",
+      "file": "hf_20261012_094713_9f1f0995-a743-4ecb-b336-2cdbe5a6c11f.png"
+    },
+    {
+      "n": 2,
+      "caption": "gn",
+      "emoji": "😴",
+      "file": "hf_20261012_094713_cad03ce2-ae69-453e-abd8-7c50e0e2adca.png"
+    },
+    {
+      "n": 3,
+      "caption": "lfg",
+      "emoji": "🔥",
+      "file": "hf_20261012_094714_2cb947a7-e651-4588-a345-99f0b6153396.png"
+    },
+    {
+      "n": 4,
+      "caption": "long",
+      "emoji": "📈",
+      "file": "hf_20261012_094714_709adc4a-be9b-4a41-907e-b0dc6db2f402.png"
+    },
+    {
+      "n": 5,
+      "caption": "short",
+      "emoji": "📉",
+      "file": "hf_20261012_094715_2adf5bd7-d879-4af6-8b56-eff9247e1257.png"
+    },
+    {
+      "n": 6,
+      "caption": "liquidated",
+      "emoji": "😭",
+      "file": "hf_20261012_094715_483a6815-cc85-49db-a8f3-ce990ebf1070.png"
+    },
+    {
+      "n": 7,
+      "caption": "up only",
+      "emoji": "🚀",
+      "file": "hf_20261012_094815_93ad0480-3132-477a-8332-84adae69d297.png"
+    },
+    {
+      "n": 8,
+      "caption": "wen",
+      "emoji": "⏳",
+      "file": "hf_20261012_094814_747cc853-e0e6-4ad6-b3fd-c255b26321f0.png"
+    },
+    {
+      "n": 9,
+      "caption": "probably nothing",
+      "emoji": "🍵",
+      "file": "hf_20261012_094815_87eacbaf-6ab2-4480-acdf-78d2a38a6895.png"
+    },
+    {
+      "n": 10,
+      "caption": "buy the dip",
+      "emoji": "🛒",
+      "file": "hf_20261012_094814_1e9731bf-b2dd-4534-a846-86685a50e94c.png"
+    },
+    {
+      "n": 11,
+      "caption": "wagmi",
+      "emoji": "🤝",
+      "file": "hf_20261012_094813_89fa7c28-6d13-495f-8fb9-a3226199f121.png"
+    },
+    {
+      "n": 12,
+      "caption": "touch grass",
+      "emoji": "🌱",
+      "file": "hf_20261012_094816_1d58603e-0e7b-4572-98f5-a5058ba094e9.png"
+    }
+  ],
   "stickers": [
-    { "n": 1,  "caption": "gm",               "emoji": "☀️", "file": "hf_20261012_094713_9f1f0995-a743-4ecb-b336-2cdbe5a6c11f.png" },
-    { "n": 2,  "caption": "gn",               "emoji": "😴", "file": "hf_20261012_094713_cad03ce2-ae69-453e-abd8-7c50e0e2adca.png" },
-    { "n": 3,  "caption": "lfg",              "emoji": "🔥", "file": "hf_20261012_094714_2cb947a7-e651-4588-a345-99f0b6153396.png" },
-    { "n": 4,  "caption": "long",             "emoji": "📈", "file": "hf_20261012_094714_709adc4a-be9b-4a41-907e-b0dc6db2f402.png" },
-    { "n": 5,  "caption": "short",            "emoji": "📉", "file": "hf_20261012_094715_2adf5bd7-d879-4af6-8b56-eff9247e1257.png" },
-    { "n": 6,  "caption": "liquidated",       "emoji": "😭", "file": "hf_20261012_094715_483a6815-cc85-49db-a8f3-ce990ebf1070.png" },
-    { "n": 7,  "caption": "up only",          "emoji": "🚀", "file": "hf_20261012_094815_93ad0480-3132-477a-8332-84adae69d297.png" },
-    { "n": 8,  "caption": "wen",              "emoji": "⏳", "file": "hf_20261012_094814_747cc853-e0e6-4ad6-b3fd-c255b26321f0.png" },
-    { "n": 9,  "caption": "probably nothing", "emoji": "🍵", "file": "hf_20261012_094815_87eacbaf-6ab2-4480-acdf-78d2a38a6895.png" },
-    { "n": 10, "caption": "buy the dip",      "emoji": "🛒", "file": "hf_20261012_094814_1e9731bf-b2dd-4534-a846-86685a50e94c.png" },
-    { "n": 11, "caption": "wagmi",            "emoji": "🤝", "file": "hf_20261012_094813_89fa7c28-6d13-495f-8fb9-a3226199f121.png" },
-    { "n": 12, "caption": "touch grass",      "emoji": "🌱", "file": "hf_20261012_094816_1d58603e-0e7b-4572-98f5-a5058ba094e9.png" }
+    {
+      "n": 1,
+      "caption": "gm",
+      "emoji": "☀️",
+      "file": "hf_20261012_095527_125dbe58-91a5-4e53-b6f8-863daa86498a.png"
+    },
+    {
+      "n": 2,
+      "caption": "lfg",
+      "emoji": "🔥",
+      "file": "hf_20261012_095528_d14ab418-4e8b-40b3-8068-ba1bcfc5ecab.png"
+    },
+    {
+      "n": 3,
+      "caption": "long",
+      "emoji": "📈",
+      "file": "hf_20261012_095527_1fe3575f-296a-4630-94f3-f73aaa9f0345.png"
+    },
+    {
+      "n": 4,
+      "caption": "liquidated",
+      "emoji": "😭",
+      "file": "hf_20261012_095527_0ca97188-14d7-4fa1-882c-5515a1adc9bf.png"
+    },
+    {
+      "n": 5,
+      "caption": "wagmi",
+      "emoji": "🤝",
+      "file": "hf_20261012_095528_3973065d-882f-4a64-ab6f-9e354455f5e8.png"
+    }
   ]
 }

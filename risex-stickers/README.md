@@ -1,6 +1,6 @@
 # RISEx frog sticker pack
 
-12 Telegram stickers made on Higgsfield (gpt_image_2_5, high, 2k, transparent) from the blue-tee frog.
+Telegram stickers made on Higgsfield (gpt_image_2_5, high, 2k, transparent). The active set is the degen frog (bloodshot ₿ eyes, headset, blue tee with the RISEx logo); the earlier blue-tee set is kept under `earlier_blue_tee_set`.
 `manifest.json` lists each sticker's caption, emoji and source file.
 
 ## Build the files
