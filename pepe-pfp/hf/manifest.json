@@ -1,7 +1,7 @@
 {
   "note": "Higgsfield source images for the frog PFP builder. Every trait is an edit of the base, same pose and framing, transparent background, gpt_image_2_5 high 2k. Layers get cut out by diffing each trait image against the base.",
   "cdn": "https://d8j0ntlcm91z4.cloudfront.net/user_3JSaTqZSLPBwkdGMvbLaGVg1i76/",
-  "base": { "id": "base", "job": "3700474e-3eed-4d85-86c4-64c4db6d73bd" },
+  "base": { "id": "base", "job": "3700474e-3eed-4d85-86c4-64c4db6d73bd", "file": "hf_20261012_091049_3700474e-3eed-4d85-86c4-64c4db6d73bd.png" },
   "traits": [
     { "layer": "eyes",    "id": "degen",       "job": "bf73a996-cd7a-410d-80b4-db25052432c8", "file": "hf_20261012_091515_bf73a996-cd7a-410d-80b4-db25052432c8.png" },
     { "layer": "headwear","id": "headset",     "job": "8f12208e-119b-4d34-a4fe-45427822a409", "file": "hf_20261012_091414_8f12208e-119b-4d34-a4fe-45427822a409.png" },
