@@ -1,0 +1,23 @@
+{
+  "note": "Higgsfield source images for the frog PFP builder. Every trait is an edit of the base, same pose and framing, transparent background, gpt_image_2_5 high 2k. Layers get cut out by diffing each trait image against the base.",
+  "cdn": "https://d8j0ntlcm91z4.cloudfront.net/user_3JSaTqZSLPBwkdGMvbLaGVg1i76/",
+  "base": { "id": "base", "job": "3700474e-3eed-4d85-86c4-64c4db6d73bd" },
+  "traits": [
+    { "layer": "eyes",    "id": "degen",       "job": "bf73a996-cd7a-410d-80b4-db25052432c8", "file": "hf_20261012_091515_bf73a996-cd7a-410d-80b4-db25052432c8.png" },
+    { "layer": "headwear","id": "headset",     "job": "8f12208e-119b-4d34-a4fe-45427822a409", "file": "hf_20261012_091414_8f12208e-119b-4d34-a4fe-45427822a409.png" },
+    { "layer": "outfit",  "id": "hoodie-green","job": "b6017eb9-4e9b-4b83-a648-ea03d2c09cac", "file": "hf_20261012_091413_b6017eb9-4e9b-4b83-a648-ea03d2c09cac.png" },
+    { "layer": "hand",    "id": "chart",       "job": "9debc1b4-6eb5-4b9b-8c59-204c65c8b5a5", "file": "hf_20261012_091413_9debc1b4-6eb5-4b9b-8c59-204c65c8b5a5.png" },
+    { "layer": "outfit",  "id": "tee-blue",    "job": "951f068f-32d9-4043-8859-1b92cab665d4", "file": "hf_20261012_091412_951f068f-32d9-4043-8859-1b92cab665d4.png" },
+    { "layer": "outfit",  "id": "suit",        "job": "058bc944-4e55-4bbd-977e-7778439b46d8", "file": "hf_20261012_091413_058bc944-4e55-4bbd-977e-7778439b46d8.png" },
+    { "layer": "outfit",  "id": "tracksuit",   "job": "9d4ac188-c721-4c10-b734-9a0400cd2e32", "file": "hf_20261012_091414_9d4ac188-c721-4c10-b734-9a0400cd2e32.png" },
+    { "layer": "outfit",  "id": "hoodie-black","job": "0ab12641-463b-427d-a993-004b42795cb0", "file": "hf_20261012_091414_0ab12641-463b-427d-a993-004b42795cb0.png" },
+    { "layer": "headwear","id": "cap",         "job": "be12ff29-d3b2-41b6-9564-f9d8a71523f8", "file": "hf_20261012_091515_be12ff29-d3b2-41b6-9564-f9d8a71523f8.png" },
+    { "layer": "headwear","id": "beanie",      "job": "a4f28a84-a448-40bc-aac8-442048ac28b0", "file": "hf_20261012_091515_a4f28a84-a448-40bc-aac8-442048ac28b0.png" },
+    { "layer": "headwear","id": "crown",       "job": "bcc33596-4cac-4770-9193-d0d1a6d79e63", "file": "hf_20261012_091515_bcc33596-4cac-4770-9193-d0d1a6d79e63.png" },
+    { "layer": "headwear","id": "wizard",      "job": "feff9baa-43aa-4c51-b4b2-f8af759ebe37", "file": "hf_20261012_091414_feff9baa-43aa-4c51-b4b2-f8af759ebe37.png" },
+    { "layer": "hand",    "id": "coin",        "job": "46cb622d-2b5a-48de-889c-e772623bad39", "file": "hf_20261012_091548_46cb622d-2b5a-48de-889c-e772623bad39.png" },
+    { "layer": "hand",    "id": "flame",       "job": "adde1e6a-32c8-47c7-8c65-35a665bffb53", "file": "hf_20261012_091548_adde1e6a-32c8-47c7-8c65-35a665bffb53.png" },
+    { "layer": "float",   "id": "laptop",      "job": "ab09dc2c-5bc0-47d9-8955-aeb59213c46b", "file": "hf_20261012_091548_ab09dc2c-5bc0-47d9-8955-aeb59213c46b.png" },
+    { "layer": "float",   "id": "icons",       "job": "639e4e53-ffb4-42e7-bf7a-9802333b256e", "file": "hf_20261012_091549_639e4e53-ffb4-42e7-bf7a-9802333b256e.png" }
+  ]
+}
