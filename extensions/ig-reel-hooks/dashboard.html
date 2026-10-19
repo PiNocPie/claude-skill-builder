@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IG Reel Hooks</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <header>
+    <h1>IG Reel Hooks</h1>
+    <p id="summary" class="muted"></p>
+  </header>
+
+  <details id="settings-panel">
+    <summary>Settings</summary>
+    <form id="settings">
+      <label>Anthropic API key
+        <input type="password" name="anthropicKey" autocomplete="off" placeholder="sk-ant-...">
+      </label>
+      <label>Groq API key (transcription)
+        <input type="password" name="groqKey" autocomplete="off" placeholder="gsk_...">
+      </label>
+      <label>Claude model
+        <select name="model">
+          <option value="claude-sonnet-5-5">Sonnet 5.5 (default, cheaper)</option>
+          <option value="claude-opus-5-5">Opus 5.5 (deeper, pricier)</option>
+        </select>
+      </label>
+      <label>Analysis language
+        <select name="outputLang">
+          <option value="English">English</option>
+          <option value="Thai">Thai</option>
+        </select>
+      </label>
+      <label>Google Sheets web app URL
+        <input type="url" name="webhookUrl" placeholder="https://script.google.com/macros/s/.../exec">
+      </label>
+      <label>Sheets secret (same as SECRET in Code.gs)
+        <input type="password" name="secret" autocomplete="off">
+      </label>
+      <button type="submit">Save settings</button>
+      <span id="settings-status" class="muted"></span>
+    </form>
+  </details>
+
+  <section class="toolbar">
+    <label>Profile
+      <select id="filter-user"></select>
+    </label>
+    <label>Min outlier ×
+      <input id="filter-outlier" type="number" min="0" step="0.5" value="0">
+    </label>
+    <label>Sort
+      <select id="sort">
+        <option value="outlier">Outlier ×</option>
+        <option value="views">Views</option>
+        <option value="date">Newest</option>
+      </select>
+    </label>
+    <span class="spacer"></span>
+    <button id="select-visible" type="button">Select visible</button>
+    <button id="analyze" type="button" class="primary">Analyze selected</button>
+    <button id="send" type="button">Send visible to Sheets</button>
+    <button id="clear" type="button" class="danger">Clear data</button>
+  </section>
+
+  <p id="status" class="muted" role="status"></p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th><input id="select-all" type="checkbox" aria-label="Select all visible"></th>
+          <th>Creator</th>
+          <th>Posted</th>
+          <th class="num">Views</th>
+          <th class="num">Likes</th>
+          <th class="num">Comments</th>
+          <th class="num">Outlier ×</th>
+          <th>Hook</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p id="empty" class="muted" hidden>
+      Nothing captured yet. Open a profile's Reels tab on instagram.com and scroll. Reels show up here as they load.
+    </p>
+  </div>
+
+  <script type="module" src="src/dashboard.js"></script>
+</body>
+</html>

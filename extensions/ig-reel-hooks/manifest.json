@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "IG Reel Hooks",
+  "version": "0.1.0",
+  "description": "Collects Instagram Reels and profile stats while you browse, then extracts hooks and scripts with Groq Whisper + Claude and sends them to Google Sheets.",
+  "permissions": ["storage", "unlimitedStorage"],
+  "host_permissions": [
+    "https://www.instagram.com/*",
+    "https://*.cdninstagram.com/*",
+    "https://*.fbcdn.net/*",
+    "https://api.anthropic.com/*",
+    "https://api.groq.com/*",
+    "https://script.google.com/*",
+    "https://script.googleusercontent.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_title": "IG Reel Hooks: open dashboard"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.instagram.com/*"],
+      "js": ["src/inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.instagram.com/*"],
+      "js": ["src/extract.js", "src/content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

@@ -29,6 +29,7 @@
 | `.claude/commands/new-skill.md` | พิมพ์ `/new-skill` เพื่อสร้าง skill ใหม่ |
 | `templates/SKILL.template.md` | เทมเพลตเปล่าเขียน skill |
 | `examples/` | ตัวอย่าง skill ที่สร้างด้วยวิธีนี้ |
+| `extensions/ig-reel-hooks/` | Chrome extension เก็บ Reels + โปรไฟล์ แล้วแตก hook/สคริปต์ด้วย Claude ส่งเข้า Google Sheets |
 
 ## เริ่มยังไง
 
