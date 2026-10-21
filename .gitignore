@@ -1,1 +1,6 @@
 .DS_Store
+
+# local secrets (API keys) — never commit
+.env
+.env.*
+!.env.example
